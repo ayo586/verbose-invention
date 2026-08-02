@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexoraVPN — Ultra-Fast Secure Connection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="aurora">
+
+    <!-- ============ AMBIENT BACKGROUND ============ -->
+    <div class="bg-orbs" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <span class="orb orb-4"></span>
+    </div>
+
+    <div class="app-shell">
+
+        <!-- ============ HEADER ============ -->
+        <header class="app-header">
+            <a href="#" class="brand" aria-label="NexoraVPN home">
+                <span class="brand-icon">✦</span>
+                <span class="brand-text">Nexora<span>VPN</span></span>
+            </a>
+
+            <nav class="quick-nav" aria-label="Primary">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Servers</a>
+                <a href="#" class="nav-link">Stats</a>
+                <a href="#" class="nav-link">Security</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="theme-switcher" aria-label="Theme selection">
+                    <button class="theme-dot active" data-theme="aurora" title="Aurora" aria-label="Aurora theme"></button>
+                    <button class="theme-dot" data-theme="sunset" title="Sunset" aria-label="Sunset theme"></button>
+                    <button class="theme-dot" data-theme="emerald" title="Emerald" aria-label="Emerald theme"></button>
+                    <button class="theme-dot" data-theme="cyber" title="Cyber" aria-label="Cyber theme"></button>
+                </div>
+                <button class="icon-btn" id="notify-btn" aria-label="Notifications">
+                    <span class="badge-dot"></span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </button>
+                <button class="avatar" id="avatar-btn" aria-label="Profile">
+                    <span class="avatar-ring"></span>
+                    <img src="https://i.pravatar.cc/80?img=12" alt="User avatar" class="avatar-img">
+                </button>
+            </div>
+        </header>
+
+        <!-- ============ MAIN CONTENT ============ -->
+        <main class="dashboard">
+
+            <!-- Hero / Connection Panel -->
+            <section class="hero glass-card">
+                <div class="hero-copy">
+                    <span class="eyebrow chip-glow">Secure • Private • Fast</span>
+                    <h1 class="hero-title">Your shield for the <span class="gradient-text">open internet</span>.</h1>
+                    <p class="hero-sub">Encrypted tunnel with military-grade AES-256 protection. Zero logs, unlimited bandwidth.</p>
+                    <div class="hero-badges">
+                        <span class="mini-badge">🔒 AES-256</span>
+                        <span class="mini-badge">⚡ 10 Gbps</span>
+                        <span class="mini-badge">🌐 No-Logs</span>
+                        <span class="mini-badge">📡 Kill Switch</span>
+                    </div>
+                </div>
+
+                <!-- Connection Toggle -->
+                <div class="connection-wrap">
+                    <div class="status-ring" id="status-ring" data-state="off">
+                        <div class="ring-core">
+                            <button class="power-btn" id="power-btn" aria-label="Toggle VPN connection">
+                                <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                            </button>
+                        </div>
+                        <div class="ring-dash"></div>
+                        <div class="ring-dash ring-dash-2"></div>
+                    </div>
+
+                    <div class="status-text" id="status-text">Disconnected</div>
+                    <div class="status-hint" id="status-hint">Tap to connect securely</div>
+
+                    <div class="signal" id="signal" aria-label="Signal strength">
+                        <span class="signal-bar"></span>
+                        <span class="signal-bar"></span>
+                        <span class="signal-bar"></span>
+                        <span class="signal-bar"></span>
+                    </div>
+                </div>
+
+                <!-- IP Banner -->
+                <div class="ip-banner glass-inset">
+                    <div class="ip-item">
+                        <span class="ip-label">Virtual IP</span>
+                        <span class="ip-value mono" id="virtual-ip">103.21.58.11</span>
+                    </div>
+                    <span class="ip-divider"></span>
+                    <div class="ip-item">
+                        <span class="ip-label">Location</span>
+                        <span class="ip-value" id="current-location">🇺🇸 New York, United States</span>
+                    </div>
+                    <span class="ip-divider"></span>
+                    <div class="ip-item">
+                        <span class="ip-label">Ping</span>
+                        <span class="ip-value mono" id="current-ping">18 ms</span>
+                    </div>
+                    <span class="ip-divider"></span>
+                    <div class="ip-item">
+                        <span class="ip-label">Protocol</span>
+                        <span class="ip-value mono" id="banner-protocol">WireGuard</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Server Selection + Stats Grid -->
+            <section class="lower-grid">
+
+                <!-- Server Selection Card -->
+                <article class="glass-card server-card">
+                    <div class="card-head">
+                        <div>
+                            <h2 class="card-title">Server Locations</h2>
+                            <span class="server-count" id="server-count">0 online</span>
+                        </div>
+                        <button class="quick-connect" id="quick-connect" aria-label="Quick connect to fastest server">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Quick
+                        </button>
+                    </div>
+
+                    <div class="server-dropdown" id="server-dropdown">
+                        <button class="server-selected" id="server-selected" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="server-selected-left">
+                                <span class="server-flag">🇺🇸</span>
+                                <span class="server-meta">
+                                    <span class="server-name" id="server-name">New York</span>
+                                    <span class="server-city" id="server-city">United States</span>
+                                </span>
+                            </span>
+                            <span class="server-selected-right">
+                                <span class="ping-pill" id="selected-ping">18 ms</span>
+                                <svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </span>
+                        </button>
+
+                        <div class="server-search" id="server-search-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="server-search" placeholder="Search cities or countries…" autocomplete="off" aria-label="Search servers">
+                        </div>
+                        <ul class="server-list" id="server-list" role="listbox" aria-label="Available servers"></ul>
+                    </div>
+
+                    <div class="server-foot">
+                        <span class="foot-label">Currently assigned</span>
+                        <span class="foot-value mono" id="assigned-ip">103.21.58.11</span>
+                    </div>
+                </article>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+
+                    <article class="glass-card stat-card">
+                        <span class="stat-icon gradient-download">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </span>
+                        <div class="stat-info">
+                            <span class="stat-label">Download Speed</span>
+                            <span class="stat-value mono" id="download-speed">142.5 <small>Mbps</small></span>
+                        </div>
+                        <span class="stat-trend up" id="download-trend">▲ 2.4%</span>
+                    </article>
+
+                    <article class="glass-card stat-card">
+                        <span class="stat-icon gradient-upload">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </span>
+                        <div class="stat-info">
+                            <span class="stat-label">Upload Speed</span>
+                            <span class="stat-value mono" id="upload-speed">88.2 <small>Mbps</small></span>
+                        </div>
+                        <span class="stat-trend up" id="upload-trend">▲ 1.8%</span>
+                    </article>
+
+                    <article class="glass-card stat-card">
+                        <span class="stat-icon gradient-time">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </span>
+                        <div class="stat-info">
+                            <span class="stat-label">Session Time</span>
+                            <span class="stat-value mono" id="session-time">00:00:00</span>
+                        </div>
+                        <span class="stat-trend" id="session-indicator">●</span>
+                    </article>
+
+                    <article class="glass-card stat-card protocol-card">
+                        <span class="stat-icon gradient-protocol">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><line x1="12" y1="11" x2="12" y2="15"/><line x1="8" y1="11" x2="8" y2="15"/><line x1="16" y1="11" x2="16" y2="15"/></svg>
+                        </span>
+                        <div class="stat-info">
+                            <span class="stat-label">Protocol</span>
+                            <div class="protocol-select-wrap">
+                                <select class="protocol-select" id="protocol-select" aria-label="Select VPN protocol">
+                                    <option value="wireguard" selected>WireGuard</option>
+                                    <option value="openvpn">OpenVPN</option>
+                                    <option value="ikev2">IKEv2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="stat-trend" id="protocol-recommended">Best</span>
+                    </article>
+
+                    <article class="glass-card stat-card">
+                        <span class="stat-icon gradient-data">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        </span>
+                        <div class="stat-info">
+                            <span class="stat-label">Data Used</span>
+                            <span class="stat-value mono" id="data-used">0.0 <small>MB</small></span>
+                        </div>
+                        <span class="stat-trend" id="data-indicator">Session</span>
+                    </article>
+
+                    <!-- Traffic Graph (full width) -->
+                    <article class="glass-card stat-card graph-card">
+                        <div class="graph-head">
+                            <span class="stat-label">Live Traffic</span>
+                            <div class="graph-legend">
+                                <span class="legend-item"><span class="legend-dot down"></span>Download</span>
+                                <span class="legend-item"><span class="legend-dot up"></span>Upload</span>
+                            </div>
+                        </div>
+                        <canvas id="traffic-canvas" aria-label="Traffic graph"></canvas>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Security Suite -->
+            <section class="glass-card security-suite">
+                <div class="card-head">
+                    <div>
+                        <h2 class="card-title">Security Suite</h2>
+                        <p class="suite-sub">Protect your connection with layered defenses</p>
+                    </div>
+                    <span class="suite-shield">🛡️</span>
+                </div>
+
+                <div class="toggles-grid">
+                    <div class="toggle-group">
+                        <div class="toggle-label">Network Kill Switch<span>Block traffic on disconnect</span></div>
+                        <label class="switch"><input type="checkbox" id="toggle-kill" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="toggle-group">
+                        <div class="toggle-label">Ad & Tracker Blocker<span>DNS-level filtering</span></div>
+                        <label class="switch"><input type="checkbox" id="toggle-adblock" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="toggle-group">
+                        <div class="toggle-label">Threat Shield<span>Malware domain blocking</span></div>
+                        <label class="switch"><input type="checkbox" id="toggle-threat" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="toggle-group">
+                        <div class="toggle-label">Split Tunneling<span>Route selected apps only</span></div>
+                        <label class="switch"><input type="checkbox" id="toggle-split"><span class="slider"></span></label>
+                    </div>
+                    <div class="toggle-group">
+                        <div class="toggle-label">DNS Leak Protection<span>Prevent DNS/IPv6 leaks</span></div>
+                        <label class="switch"><input type="checkbox" id="toggle-leak" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity Log -->
+            <section class="glass-card activity-log">
+                <div class="card-head" id="activity-head">
+                    <div>
+                        <h2 class="card-title">Activity Log</h2>
+                        <span class="log-count" id="log-count">0 events</span>
+                    </div>
+                    <button class="icon-btn" id="clear-log" aria-label="Clear activity log" title="Clear log">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                </div>
+                <div class="log-body" id="log-body">
+                    <div class="log-empty">No events yet. Connect to start logging.</div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <span>NexoraVPN <span class="dot-sep">•</span> AES-256 encrypted</span>
+                <span>Zero-log policy <span class="dot-sep">•</span> Unlimited devices</span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status">
+        <span class="toast-icon" id="toast-icon">🔒</span>
+        <span class="toast-msg" id="toast-msg">Connected to United States</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
